@@ -69,7 +69,7 @@ let [a, b] = [1, 2];
 <div onClick={ function() { 실행할코드 } }></div>
 <div onClick={ () => { 실행할코드 } }></div>
 ```
-## state 변경
+## state 변경하는 방법
 - state 변경함수 사용
 - 👍 클릭 시 good이 1씩 증가
 ```javascript
@@ -77,3 +77,29 @@ let [good, setGood] = useState(0);
 
 <span onClick={ function() { setGood(good+1) } }>👍</span> { good }
 ```
+
+## array, object state 변경하는 방법
+array, object 자료를 다룰 때는 기존값은 보존해 주는 식으로 코드를 짜는게 좋은 관습이다. (원본보존)
+```javascript
+// <button> 클릭 시 '남자코트 추천' > '여자코트 추천'으로 변경
+let [postTitle, setPostTitle] = useState(['남자코트 추천', '강남 우동맛집', '리액트독학']);
+
+<button onClick={function() {
+  let copy = [...postTitle];
+  copy[0] = '여자코트 추천';
+  setPostTitle(copy);
+}}> 수정버튼 </button>
+```
+- state 변경함수 동작원리
+  1. 기존state === 신규state 검사
+  2. true > state 변경 X
+- array/object 동작원리 (추가학습: javascript reference data type)
+  1. 자바스크립트는 array/object 자료를 하나 만들면 램이라는 가상공간에 몰래 저장되고, 해당 자료의 변수엔 그 자료가 어디있는지 가리키는 화살표만 담겨있다.
+  2. 즉, 변수에는 해당 자료를 가리키는 화살표만 저장된다.
+  3. 때문에 같은 화살표를 가지고 있는 변수끼리는 등호로 비교해도 똑같다고 나온다.
+  4. `[...]`: 화살표가 달라지는 문법
+
+## spread operator 문법 [...]
+array나 object 자료형 왼쪽에 붙일 수 있으며 뜻은 간단하게 **괄호를 벗겨달라** 는 뜻이다. (괄호벗기기용 연산자)<br/><br/>
+또는 화살표가 다른 완전 **독립적인 array 복사본을 생성** 해줄 수도 있다.<br/>
+독립적인 사본을 `shallow copy` 아니면 `deep copy`라고 한다.
