@@ -25,5 +25,18 @@ npx create-react-add 프로젝트명
 # JSX 문법
 .js 파일에서 쓰는 html 대용품
 1. class > className
+```html
+<div className="black-nav"></div>
+```
 2. 데이터바인딩 > 중괄호{}
+```javascript
+let post = '강남 우동 맛집';
+
+<div>{ post }</div>
+```
 3. style > style={{스타일명:'값'}}
+```javascript
+<div style={ {color: 'red', fontSize: '16px'} }>글제목</div>
+```
+
+# State
