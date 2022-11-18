@@ -21,3 +21,9 @@ npx create-react-add 프로젝트명
 - public : static 파일 보관함
 - src : 코드 짜는 곳
 - package.json : 프로젝트 정보
+
+# JSX 문법
+.js 파일에서 쓰는 html 대용품
+1. class > className
+2. 데이터바인딩 > 중괄호{}
+3. style > style={{스타일명:'값'}}
