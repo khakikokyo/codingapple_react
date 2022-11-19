@@ -162,3 +162,48 @@ function Modal() {
   </>
 }
 ```
+
+## 동적인 UI 만드는 step
+1. html css로 미리 디자인 완성
+```javascript
+function Modal() {
+  return (
+    <div className="modal">
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  )
+}
+```
+```css
+.modal {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #eee;
+  text-align: left;
+}
+```
+2. UI의 현재 상태를 state로 저장
+```javascript
+// 형식은 자유
+let [modal, setModal] = useState(false);
+```
+3. state에 따라 UI가 어떻게 보일지 작성 (조건문 등)
+```javascript
+// 삼항연산자(ternary operator)
+// JSX에서 if else 문법을 바로 사용할 수 없다.
+// 하지만 if 문법 대신 삼항연사자는 JSX 중괄호 안에서도 사용이 가능하다.
+{
+  modal == true ? <Modal/> : null
+}
+```
+
+- 활용) 글제목(postTitle) 클릭시 모달창 열고 닫기
+```html
+<div className="list">
+  <h4 onClick={function() {
+    setModal(!modal)
+  }}>{ postTitle[2] }</h4>
+</div>
+```
