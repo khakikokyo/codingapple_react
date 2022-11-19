@@ -27,3 +27,8 @@ $ npx create-react-add 프로젝트명
 - `public`: static 파일 보관함
 - `src`: 코드 짜는 곳
 - `package.json`: 프로젝트 정보
+
+# Study Project (Folder)
+
+1. [blog](https://github.com/khakikokyo/codingapple_react/tree/main/blog): React blog 제작과 기본 문법에 대해 공부합니다.
+2. [shop](https://github.com/khakikokyo/codingapple_react/tree/main/shop): React 쇼핑몰 제작과 기본 문법에 대해 공부합니다.
