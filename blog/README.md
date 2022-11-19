@@ -466,7 +466,7 @@ let [inputValue, setInputValue] = useState('');
 ```javascript
 <button onClick={function() {
   let copy = [...postTitle];
-  copy.splice(i, 1);
+  copy.splice(i, 1); // index i 부터 1개의 요소를 제거
   setPostTitle(copy);
 }}>삭제</button>
 ```
