@@ -445,3 +445,28 @@ onClick={} | button을 클릭할 때마다 중괄호{} 안의 코드를 실행
   })
 }
 ```
+
+### 활용 예제
+
+1. 글발행 기능: 버튼을 누르면 유저가 입력한 글을 글목록에 추가
+```javascript
+let [inputValue, setInputValue] = useState('');
+
+<div>
+  <input onChange={ function(e) { setInputValue(e.target.value) } } />
+  <button onClick={function() {
+    let copy = [...postTitle];
+    copy.unshift(inputValue); // 배열의 앞쪽에 요소를 추가
+    setPostTitle(copy);
+  }}>글발행</button>
+</div>
+```
+
+2. 글삭제 기능: 글마다 삭제버튼과 기능 만들기
+```javascript
+<button onClick={function() {
+  let copy = [...postTitle];
+  copy.splice(i, 1);
+  setPostTitle(copy);
+}}>삭제</button>
+```

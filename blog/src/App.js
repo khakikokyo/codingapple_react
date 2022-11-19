@@ -31,12 +31,24 @@ function App() {
                 } }>👍</span> { good[i] }
               </h4>
               <p>11월 18일 발행</p>
+              <button onClick={function() {
+                let copy = [...postTitle];
+                copy.splice(i, 1);
+                setPostTitle(copy);
+              }}>삭제</button>
             </div>
           )
         })
       }
 
-      <input onChange={ function(e) { setInputValue(e.target.value); console.log(inputValue) } } />
+      <div>
+        <input onChange={ function(e) { setInputValue(e.target.value) } } />
+        <button onClick={function() {
+          let copy = [...postTitle];
+          copy.unshift(inputValue);
+          setPostTitle(copy);
+        }}>글발행</button>
+      </div>
 
       {
         modal == true ? <Modal title={title} postTitle={postTitle}/> : null
