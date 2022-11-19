@@ -277,7 +277,8 @@ console.log(newArray);
 
 ## props
 자식 컴포넌트가 부모 컴포넌트에 있던 state를 사용하고 싶으면 `props` 문법을 사용하여 전송<br/>
-props 전송은 부모 > 자식만 가능
+props 전송은 부모 > 자식만 가능<br/>
+state 만드는 곳은 state 사용하는 컴포넌트들 중 `최상위 컴포넌트`
 
 ### props로 부모 > 자식 state 전송하는 방법
 
@@ -320,5 +321,50 @@ function Modal(props) {
       }}>글수정</button>
     </div>
   )
+}
+```
+
+## props 응용: 상세페이지 만들기
+
+1. 현재 UI 상태를 state로 만들기
+```javascript
+let [title, setTitle] = useState(0);
+```
+
+2. state에 따라서 UI가 어떻게 보일지 작성
+```javascript
+{
+  modal == true ? <Modal title={title} postTitle={postTitle}/> : null
+}
+
+function Modal(props) {
+  return (
+    <div className="modal">
+      <h4>{ props.postTitle[props.title] }</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  )
+}
+```
+
+3. onClick 기능구현
+```javascript
+{
+  postTitle.map(function(a, i) {
+    return (
+      <div className="list" key={i}>
+        <h4 onClick={function() { setModal(!modal); setTitle(i) }}>
+          { postTitle[i] }
+          <span onClick={ function() {
+            let copy = [...good];
+            copy[i] = copy[i] + 1;
+            setGood(copy);
+          } }>👍</span> { good[i] }
+        </h4>
+        <p>11월 18일 발행</p>
+      </div>
+    )
+  })
 }
 ```

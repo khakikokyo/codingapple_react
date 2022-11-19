@@ -8,6 +8,7 @@ function App() {
   let [postTitle, setPostTitle] = useState(['남자코트 추천', '강남 우동맛집', '리액트 독학']);
   let [good, setGood] = useState([0,0,0]);
   let [modal, setModal] = useState(false);
+  let [title, setTitle] = useState(0);
 
   return (
     <div className="App">
@@ -19,7 +20,7 @@ function App() {
         postTitle.map(function(a, i) {
           return (
             <div className="list" key={i}>
-              <h4 onClick={function() { setModal(!modal) }}>
+              <h4 onClick={function() { setModal(!modal); setTitle(i) }}>
                 { postTitle[i] }
                 <span onClick={ function() {
                   let copy = [...good];
@@ -34,7 +35,7 @@ function App() {
       }
 
       {
-        modal == true ? <Modal postTitle={postTitle} setPostTitle={setPostTitle}/> : null
+        modal == true ? <Modal title={title} postTitle={postTitle}/> : null
       }
 
     </div>
@@ -44,14 +45,9 @@ function App() {
 function Modal(props) {
   return (
     <div className="modal">
-      <h4>{props.postTitle[0]}</h4>
+      <h4>{ props.postTitle[props.title] }</h4>
       <p>날짜</p>
       <p>상세내용</p>
-      <button onClick={function() {
-        let copy = [...props.postTitle];
-        copy[0] = '여자코트 추천';
-        props.setPostTitle(copy);
-      }}>글수정</button>
     </div>
   )
 }
