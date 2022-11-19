@@ -14,18 +14,6 @@ function App() {
       <div className="black-nav">
         <h4>React Blog</h4>
       </div>
-      {/* <div className="list">
-        <h4>{ postTitle[0] } <span onClick={ function() { setGood(good+1) } }>👍</span> { good } </h4>
-        <p>11월 18일 발행</p>
-      </div>
-      <div className="list">
-        <h4>{ postTitle[1] }</h4>
-        <p>11월 18일 발행</p>
-      </div>
-      <div className="list">
-        <h4 onClick={function() {setModal(!modal)}}>{ postTitle[2] }</h4>
-        <p>11월 18일 발행</p>
-      </div> */}
 
       {
         postTitle.map(function(a, i) {
@@ -46,17 +34,17 @@ function App() {
       }
 
       {
-        modal == true ? <Modal/> : null
+        modal == true ? <Modal postTitle={postTitle}/> : null
       }
 
     </div>
   );
 }
 
-function Modal() {
+function Modal(props) {
   return (
     <div className="modal">
-      <h4>제목</h4>
+      <h4>{props.postTitle[0]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
     </div>

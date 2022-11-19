@@ -274,3 +274,28 @@ console.log(newArray);
   })
 }
 ```
+
+## props
+자식 컴포넌트가 부모 컴포넌트에 있던 state를 사용하고 싶으면 `props` 문법을 사용하여 전송<br/>
+props 전송은 부모 > 자식만 가능
+
+### props로 부모 > 자식 state 전송하는 방법
+
+1. 자식 컴포넌트를 사용하는 곳에서 <자식컴포넌트 작명 = {state이름}/>
+```javascript
+{
+  modal == true ? <Modal postTitle={postTitle}/> : null
+}
+```
+2. 자식 컴포넌트 만드는 function으로 가서 props라는 파라미터를 등록한 후 props.작명 사용
+```javascript
+function Modal(props) {
+  return (
+    <div className="modal">
+      <h4>{props.postTitle[0]}</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  )
+}
+```
