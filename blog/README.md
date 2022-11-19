@@ -1,7 +1,7 @@
-# REACT : blog
+# REACT
 
 <img width="150" src="./public/img/react.png" /> <br/>
-React blog 제작과 기본 문법에 대해 공부합니다.
+React `blog` 제작과 기본 문법에 대해 공부합니다.
 
 # React 설치와 개발환경 세팅 (2022 ver)
 1. Node.js 설치 (v18.11.0)
