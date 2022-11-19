@@ -34,7 +34,7 @@ function App() {
       }
 
       {
-        modal == true ? <Modal postTitle={postTitle}/> : null
+        modal == true ? <Modal postTitle={postTitle} setPostTitle={setPostTitle}/> : null
       }
 
     </div>
@@ -47,6 +47,11 @@ function Modal(props) {
       <h4>{props.postTitle[0]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={function() {
+        let copy = [...props.postTitle];
+        copy[0] = '여자코트 추천';
+        props.setPostTitle(copy);
+      }}>글수정</button>
     </div>
   )
 }

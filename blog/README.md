@@ -299,3 +299,26 @@ function Modal(props) {
   )
 }
 ```
+
+- 활용) 글수정 버튼 클릭시 첫 글이 '여자코트 추천'으로 변경
+
+```javascript
+{
+  modal == true ? <Modal postTitle={postTitle} setPostTitle={setPostTitle}/> : null
+}
+
+function Modal(props) {
+  return (
+    <div className="modal">
+      <h4>{props.postTitle[0]}</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+      <button onClick={function() {
+        let copy = [...props.postTitle];
+        copy[0] = '여자코트 추천';
+        props.setPostTitle(copy);
+      }}>글수정</button>
+    </div>
+  )
+}
+```
