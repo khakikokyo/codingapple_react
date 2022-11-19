@@ -115,3 +115,50 @@ let [postTitle, setPostTitle] = useState(['남자코트 추천', '강남 우동�
   setPostTitle(copy);
 }}>가나다순 정렬</button>
 ```
+
+## 컴포넌트(Component)
+긴 HTML을 한 단어로 깔끔하게 치환해서 넣을 수 있는 문법
+1. function 생성 (다른 함수 바깥에 생성 & 작명:영어대문자)
+```javascript
+function Modal() {}
+```
+2. return() 안에 html 담기
+```javascript
+function Modal() {
+  return (
+    <div className="modal">
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  )
+}
+```
+3. <함수명></함수명> 쓰기
+```javascript
+function App() {
+  return (
+    // <Modal></Modal>
+    <Modal/>
+  )
+}
+```
+- 참고
+```javascript
+// return () 안에 html 병렬기입하려면,
+// 1. 하나의 <div>로 감싸기
+function Modal() {
+  <div>
+    <div></div>
+    <div></div>
+  </div>
+}
+
+// 2. fragment 문법: 의미없는 <div> 대신 사용가능
+function Modal() {
+  <>
+    <div></div>
+    <div></div>
+  </>
+}
+```
