@@ -207,3 +207,70 @@ let [modal, setModal] = useState(false);
   }}>{ postTitle[2] }</h4>
 </div>
 ```
+
+## 맵(Map)
+map() 사용법
+1. array에 들어있는 자료의 개수만큼 그 안에 있는 코드를 반복실행해 준다.
+```javascript
+let array = [2,3,4]
+array.map(function() {
+  console.log(1);
+});
+// console.log(1)이 3번 실행된다.
+```
+
+2. 콜백함수에 파라미터 작성하면 그 파라미터는 array 안에 있던 모든 자료를 하나씩 출력해 준다. (소괄호 안에 있는 함수를 콜백함수라고 한다.)
+```javascript
+let array = [2,3,4]
+array.map(function(a) {
+  console.log(a);
+});
+// 2,3,4가 콘솔창에 출력된다.
+```
+
+3. return 오른쪽에 있는걸 array로 담아준다.
+```javascript
+let array = [2,3,4]
+let newArray = array.map(function(a) {
+  return a * 10;
+});
+console.log(newArray);
+// newArray: [20,30,40]이 출력된다.
+```
+
+- 활용1) JSX 안에서 html을 반복생성<br/>
+반복문으로 html 생성하면 key={html마다 다른숫자} 추가해줘야 한다.
+
+```javascript
+// i: 반복문이 돌 때 마다 0부터 1씩 증가하는 정수
+{
+  postTitle.map(function(a, i) {
+    return (
+      <div className="list" key={i}>
+        <h4>{ a }</h4> or <h4>{ postTitle[i] }</h4>
+        <p>11월 18일 발행</p>
+      </div>
+    )
+  })
+}
+```
+- 활용2) 👍 클릭 시 good이 1씩 증가
+```javascript
+{
+  postTitle.map(function(a, i) {
+    return (
+      <div className="list" key={i}>
+        <h4 onClick={function() { setModal(!modal) }}>
+          { postTitle[i] }
+          <span onClick={ function() {
+            let copy = [...good];
+            copy[i] = copy[i] + 1;
+            setGood(copy);
+          } }>👍</span> { good[i] }
+        </h4>
+        <p>11월 18일 발행</p>
+      </div>
+    )
+  })
+}
+```
