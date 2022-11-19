@@ -368,3 +368,80 @@ function Modal(props) {
   })
 }
 ```
+
+## input
+
+### input type
+
+속성값 | 설명
+--|--
+text | type 속상의 기본값으로 한 줄로 된 텍스트 필드를 정의
+button | 클릭할 수 있는 버튼을 정의
+checkbox | 체크박스(checkbox)를 정의
+color | 색을 선택할 수 있는 입력 필드(color picker)를 정의
+date | 날짜를 선택할 수 있는 입력 필드를 정의 (year, month, day)
+datetime-local | 날짜와 시간을 선택할 수 있는 입력 필드를 정의 (year, month, day, hour, minute)
+email | 이메일 주소를 입력할 수 있는 입력 필드를 정의
+file | 업로드할 파일을 선택할 수 있는 입력 필드와 '파일선택' 버튼을 정의
+hidden | 사용자에게는 보이지 않는 숨겨진 입력 필드를 정의
+image | 제출 버튼(submit button)으로 사용될 이미지를 정의
+month | 날짜를 선택할 수 있는 입력 필드를 정의 (year, month)
+number | 숫자를 입력할 수 있는 입력 필드를 정의
+password | 비밀번호를 입력할 수 있는 입력 필드를 정의
+radio | 라디오 버튼(radio button)을 정의
+range | 슬라이드 바를 조정하여 범위 내의 숫자를 선택할 수 있는 입력 필드를 정의
+reset | 리셋 버튼(reset button)을 정의
+search | 검색어를 입력할 수 있는 텍스트 필드를 정의
+submit | 제출 버튼(submit button)을 정의
+tel | 전화번호를 입력할 수 있는 입력 필드를 정의
+time | 시간을 선택할 수 있는 입력 필드를 정의 (hour, minute)
+url | URL 주소를 입력할 수 있는 입력 필드를 정의
+week | 날짜를 선택할 수 있는 입력 필드를 정의 (year, week)
+
+## 이벤트 핸들러: 매우 많음
+
+종류 | 설명
+--|--
+onChange={}/onInput={} | input 안에 값(타이핑)을 입력할 때마다 중괄호{} 안의 코드를 실행
+onMouseOver={} | input에 마우스를 올렸을 때 중괄호{} 안의 코드를 실행
+onScroll={} | input 안의 스크롤 바를 조작할 때마다 중괄호{} 안의 코드를 실행
+onClick={} | button을 클릭할 때마다 중괄호{} 안의 코드를 실행
+
+## 이벤트 객체
+
+```javascript
+// e: 작명, 지금 발생하는 이벤트에 관련한 여러 기능이 담겨있다.
+// e.target.value: 이벤트 발생한 html 태그에 입력한 값
+<input onChange={ function(e) { console.log(e.target.value) } } />
+
+// state InputValue에 input 입력값 저장
+// state 변경함수는 늦게 처리됨
+<input onChange={ function(e) {
+  setInputValue(e.target.value); // 비동기 처리
+  console.log(inputValue);
+}} />
+```
+
+## 이벤트 버블링
+### 클릭 이벤트는 상위 html로 퍼진다.
+
+```javascript
+{
+  postTitle.map(function(a, i) {
+    return (
+      <div className="list" key={i}>
+        <h4 onClick={function() { setModal(!modal); setTitle(i) }}>
+          { postTitle[i] }
+          <span onClick={ function(e) {
+            e.stopPropagation(); // 이벤트 버블링 막기
+            let copy = [...good];
+            copy[i] = copy[i] + 1;
+            setGood(copy);
+          } }>👍</span> { good[i] }
+        </h4>
+        <p>11월 18일 발행</p>
+      </div>
+    )
+  })
+}
+```

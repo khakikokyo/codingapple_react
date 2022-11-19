@@ -9,6 +9,7 @@ function App() {
   let [good, setGood] = useState([0,0,0]);
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
+  let [inputValue, setInputValue] = useState('');
 
   return (
     <div className="App">
@@ -22,7 +23,8 @@ function App() {
             <div className="list" key={i}>
               <h4 onClick={function() { setModal(!modal); setTitle(i) }}>
                 { postTitle[i] }
-                <span onClick={ function() {
+                <span onClick={ function(e) {
+                  e.stopPropagation();
                   let copy = [...good];
                   copy[i] = copy[i] + 1;
                   setGood(copy);
@@ -33,6 +35,8 @@ function App() {
           )
         })
       }
+
+      <input onChange={ function(e) { setInputValue(e.target.value); console.log(inputValue) } } />
 
       {
         modal == true ? <Modal title={title} postTitle={postTitle}/> : null
