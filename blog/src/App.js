@@ -16,6 +16,12 @@ function App() {
         <h4>React Blog</h4>
       </div>
 
+      <button onClick={function() {
+        let copy = [...postTitle];
+        copy.sort();
+        setPostTitle(copy);
+      }}>가나다순정렬</button>
+
       <button onClick={ function() {
         let copy = [...postTitle];
         copy[0] = '여자코트 추천';

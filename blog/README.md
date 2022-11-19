@@ -17,10 +17,10 @@ $ npx create-react-add 프로젝트명
 3. vscode 프로젝트 폴더 오픈
 
 # Project file 설명
-- node_modules : 라이브러리 코드 보관함
-- public : static 파일 보관함
-- src : 코드 짜는 곳
-- package.json : 프로젝트 정보
+- `node_modules` : 라이브러리 코드 보관함
+- `public` : static 파일 보관함
+- `src` : 코드 짜는 곳
+- `package.json` : 프로젝트 정보
 
 # JSX 문법
 .js 파일에서 쓰는 html 대용품
@@ -93,7 +93,7 @@ let [postTitle, setPostTitle] = useState(['남자코트 추천', '강남 우동�
 - state 변경함수 동작원리
   1. 기존state === 신규state 검사
   2. true > state 변경 X
-- array/object 동작원리 (추가학습: javascript reference data type)
+- array/object 동작원리 (추가학습: javascript `reference data type`)
   1. 자바스크립트는 array/object 자료를 하나 만들면 램이라는 가상공간에 몰래 저장되고, 해당 자료의 변수엔 그 자료가 어디있는지 가리키는 화살표만 담겨있다.
   2. 즉, 변수에는 해당 자료를 가리키는 화살표만 저장된다.
   3. 때문에 같은 화살표를 가지고 있는 변수끼리는 등호로 비교해도 똑같다고 나온다.
