@@ -103,3 +103,15 @@ let [postTitle, setPostTitle] = useState(['남자코트 추천', '강남 우동�
 array나 object 자료형 왼쪽에 붙일 수 있으며 뜻은 간단하게 **괄호를 벗겨달라** 는 뜻이다. (괄호벗기기용 연산자)<br/><br/>
 또는 화살표가 다른 완전 **독립적인 array 복사본을 생성** 해줄 수도 있다.<br/>
 독립적인 사본을 `shallow copy` 아니면 `deep copy`라고 한다.
+
+## 활용 연습
+가나다순 정렬
+```javascript
+let [postTitle, setPostTitle] = useState(['남자코트 추천', '강남 우동맛집', '리액트독학']);
+
+<button onClick={function() {
+  let copy = [...postTitle];
+  copy.sort();
+  setPostTitle(copy);
+}}>가나다순 정렬</button>
+```
