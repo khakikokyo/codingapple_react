@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import './App.css';
+import data from './data.js';
 
 function App() {
+
+  let [shoes] = useState(data);
+
   return (
     <div className="App">
       {/* 메뉴바 */}
@@ -22,25 +27,29 @@ function App() {
       {/* 상품 레이아웃 */}
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes1.jpg" alt="shoes1" />
-            <h4>상품명</h4>
-            <p>상품설명</p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes2.jpg" alt="shoes2" />
-            <h4>상품명</h4>
-            <p>상품설명</p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes3.jpg" alt="shoes3" />
-            <h4>상품명</h4>
-            <p>상품설명</p>
-          </div>
+
+          {
+            shoes.map(function(a, i) {
+              return(
+                <Card shoes={shoes[i]} i={i} />
+              )
+            })
+          }
+
         </div>
       </div>
     </div>
   );
+}
+
+function Card(props) {
+  return (
+    <div className="col-md-4">
+      <img src={'https://codingapple1.github.io/shop/shoes'+ (props.i+1) +'.jpg'} alt="shoes1" />
+      <h4>{ props.shoes.title }</h4>
+      <p>{ props.shoes.price }</p>
+    </div>
+  )
 }
 
 export default App;
