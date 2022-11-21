@@ -1,10 +1,11 @@
-import { Button, Navbar, Container, Nav } from 'react-bootstrap';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Navbar bg="dark" variant="dark">
+      {/* 메뉴바 */}
+      <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
@@ -14,6 +15,30 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
+
+      {/* 대문 */}
+      <div className="main-bg"></div>
+
+      {/* 상품 레이아웃 */}
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4">
+            <img src="https://codingapple1.github.io/shop/shoes1.jpg" alt="shoes1" />
+            <h4>상품명</h4>
+            <p>상품설명</p>
+          </div>
+          <div className="col-md-4">
+            <img src="https://codingapple1.github.io/shop/shoes2.jpg" alt="shoes2" />
+            <h4>상품명</h4>
+            <p>상품설명</p>
+          </div>
+          <div className="col-md-4">
+            <img src="https://codingapple1.github.io/shop/shoes3.jpg" alt="shoes3" />
+            <h4>상품명</h4>
+            <p>상품설명</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

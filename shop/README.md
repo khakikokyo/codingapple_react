@@ -42,3 +42,17 @@ function App() {
 
 // ClassName=""을 통해 CSS로 커스터마이징 가능
 ```
+
+## 이미지 & public 폴더 이용
+
+1. src > img 폴더의 이미지 사용
+```javascript
+import bg from './img/bg.png';
+
+<div className="main-bg" style={{ backgroundImage: 'url('+ bg +')' }}></div>
+```
+
+2. public 폴더의 이미지 사용 (권장되는 방식)
+```html
+<img src={process.env.PUBLIC_URL + '/bg.png'} />
+```
