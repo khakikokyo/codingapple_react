@@ -283,3 +283,24 @@ import { useEffect } from 'react';
 // 콜백함수 추가해서 안에 코드를 적으면 그 코드는 컴포넌트가 mount & update 시 실행
 useEffect(function() {});
 ```
+
+- 활용 예제
+```javascript
+// Detail 페이지 안에 노란 박스 생성 후
+// Detail 페이지 방문 후 2초 뒤에 박스가 사라지는 UI
+let [alert, setAlert] = useState(true);
+
+useEffect(function() {
+  setTimeout(function() { setAlert(false) }, 2000);
+}, []);
+
+<div>
+  {
+    alert == true
+    ? <div className="alert alert-warning">
+        2초 이내 구매시 할인
+      </div>
+    : null
+  }
+</div>
+```
