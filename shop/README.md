@@ -252,3 +252,18 @@ function About() {
   )
 }
 ```
+
+10. URL 파라미터 문법: 페이지를 여러 개 만들고 싶을 때 사용
+```javascript
+<Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+```
+
+#### useParams(): /:url파라미터 자리에 유저가 입력한 값을 가져올 수 있다.
+```javascript
+// Detail.js
+import { useParams } from 'react-router-dom'
+
+<h4 className="pt-5">{ props.shoes[id].title }</h4>
+<p>{ props.shoes[id].content }</p>
+<p>{ props.shoes[id].price }원</p>
+```
