@@ -201,3 +201,54 @@ import { Routes, Route, Link } from 'react-router-dom';
 <Link to="/">Home</Link>
 <Link to="/detail">Page</Link>
 ```
+
+6. 6-1. 페이지 이동 도와주는 함수
+```javascript
+import { useNavigate } from 'react-router-dom';
+
+let navigate = useNavigate();
+
+<Nav.Link onClick={function() { navigate('/') }}>Home</Nav.Link>
+<Nav.Link onClick={function() { navigate('/detail') }}>Page</Nav.Link>
+
+// 참고
+// 앞으로 한페이지 이동
+<Nav.Link onClick={function() { navigate(1) }}>Home</Nav.Link>
+// 뒤로 한페이지 이동
+<Nav.Link onClick={function() { navigate(-1) }}>Home</Nav.Link>
+```
+
+7. 404페이지
+```javascript
+// <Route path="*"> 맨 밑에 생성
+// path="*" 경로는 모든 경로를 뜻하며, 정상 경로가 아닌 다른 경로의 페이지로 접속시 '*' 경로로 안내
+<Route path="*" element={<div>없는 페이지입니다.</div>} />
+```
+
+8. Nested Routes: 서브 경로 생성
+```javascript
+<Route path="/about" element={<About />}>
+  <Route path="/about/member" element={<About />} />
+  <Route path="/about/location" element={<About />} />
+</Route>
+```
+
+9. Outlet
+```javascript
+import { Outlet } from 'react-router-dom';
+
+<Route path="/about" element={<About />}>
+  <Route path="/about/member" element={<div>member</div>} />
+  <Route path="/about/location" element={<div>location</div>} />
+</Route>
+
+// <Outlet> 위치지정
+function About() {
+  return (
+    <div>
+      <h4>회사정보</h4>
+      <Outlet></Outlet>
+    </div>
+  )
+}
+```

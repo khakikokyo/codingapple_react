@@ -3,11 +3,12 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
 import Detail from './pages/Detail';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 
 function App() {
 
   let [shoes] = useState(data);
+  let navigate = useNavigate(); // 페이지 이동 도와주는 함수
 
   return (
     <div className="App">
@@ -16,8 +17,8 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
-            <Link to="/" className="nav-link">Home</Link>
-            <Link to="/detail" className="nav-link">Page</Link>
+            <Nav.Link onClick={function() { navigate('/') }}>Home</Nav.Link>
+            <Nav.Link onClick={function() { navigate('/detail') }}>DetailPage</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -42,10 +43,24 @@ function App() {
         } />
 
         <Route path="/detail" element={<Detail />} />
+
+        <Route path="/about" element={<About />}>
+          <Route path="/about/member" element={<div>member</div>} />
+          <Route path="/about/location" element={<div>location</div>} />
+        </Route>
       </Routes>
 
     </div>
   );
+}
+
+function About() {
+  return (
+    <div>
+      <h4>회사정보</h4>
+      <Outlet></Outlet>
+    </div>
+  )
 }
 
 // 상품 레이아웃 컴포넌트
