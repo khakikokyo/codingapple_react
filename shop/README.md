@@ -68,7 +68,7 @@ export default 변수명;
 export {변수1, 변수2};
 ```
 
-2. `import`: 사용하기
+2. `import`: 가져와서 사용하기
 ```javascript
 // 1개
 import 작명 from '경로';
@@ -153,4 +153,51 @@ function Card(props) {
     </div>
   )
 }
+```
+
+# 리액트 라우터 (React Router)
+'페이지 이동' 기능
+
+1. 라우팅: 사용자가 요청한 URL에 따라 해당 URL에 맞는 페이지를 보여주는 것
+2. 리액트 라우터(React Router)
+    - 사용자가 입력한 주소를 감지하는 역할을 하며, 여러 환경에서 동작할 수 있도록 여러 종류의 라우터 컴포넌트를 제공
+    - 이중 가장 많이 사용하는 라우터 컴포넌트는 `BrowserRouter`와 `HashRouter` 이다.
+3. 종류
+    - `BrowserRouter`: HTML5를 지원하는 브라우저의 주소를 감지
+    - `HashRouter`: 해시 주소(html://aaa.com/#test)를 감지
+4. 설치
+```bash
+$ npm install react-router-dom@6
+```
+
+```javascript
+// index.html
+import { BrowserRouter } from 'react-router-dom';
+
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+    <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
+```
+
+5. 라우터로 페이지 나누기
+```javascript
+// App.js
+import { Routes, Route, Link } from 'react-router-dom';
+
+// <Route path="/url경로" element={<보여줄html>} />
+<Routes>
+  <Route path="/" element={<div>메인페이지</div>} />
+  <Route path="/detail" element={<div>상세페이지</div>} />
+  <Route path="/about" element={<div>어바웃페이지</div>} />
+</Routes>
+```
+
+6. 페이지 이동 버튼
+```javascript
+<Link to="/">Home</Link>
+<Link to="/detail">Page</Link>
 ```

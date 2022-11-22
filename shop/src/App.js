@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
 
@@ -14,34 +15,39 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/detail" className="nav-link">Page</Link>
           </Nav>
         </Container>
       </Navbar>
 
-      {/* 대문 */}
-      <div className="main-bg"></div>
+      <Routes>
+        <Route path="/" element={
+          <>
+          {/* 대문 */}
+          <div className="main-bg"></div>
 
-      {/* 상품 레이아웃 */}
-      <div className="container">
-        <div className="row">
+          {/* 상품 레이아웃 */}
+          <div className="container">
+            <div className="row">
+              {
+                shoes.map(function(a, i) {
+                  return(<Card shoes={shoes[i]} i={i} />)
+                })
+              }
+            </div>
+          </div>
+          </>
+        } />
 
-          {
-            shoes.map(function(a, i) {
-              return(
-                <Card shoes={shoes[i]} i={i} />
-              )
-            })
-          }
+        <Route path="/detail" element={<div>상세페이지</div>} />
+      </Routes>
 
-        </div>
-      </div>
     </div>
   );
 }
 
+// 상품 레이아웃 컴포넌트
 function Card(props) {
   return (
     <div className="col-md-4">
