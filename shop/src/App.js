@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
+import Detail from './pages/Detail';
 import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
           </>
         } />
 
-        <Route path="/detail" element={<div>상세페이지</div>} />
+        <Route path="/detail" element={<Detail />} />
       </Routes>
 
     </div>
