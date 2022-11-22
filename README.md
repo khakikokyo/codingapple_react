@@ -30,5 +30,7 @@ $ npx create-react-add 프로젝트명
 
 # Study Project (Folder)
 
-1. [blog](https://github.com/khakikokyo/codingapple_react/tree/main/blog): React blog 제작과 기본 문법에 대해 공부합니다.
-2. [shop](https://github.com/khakikokyo/codingapple_react/tree/main/shop): React 쇼핑몰 제작과 기본 문법에 대해 공부합니다.
+1. [blog](https://github.com/khakikokyo/codingapple_react/tree/main/blog): React blog 제작과 기본 문법에 대해 공부합니다.<br/>
+<img width="300" src="./blog/public/img/react_blog.png" /><br/>
+2. [shop](https://github.com/khakikokyo/codingapple_react/tree/main/shop): React 쇼핑몰 제작과 기본 문법에 대해 공부합니다.<br/>
+<img width="300" src="./shop/public/img/react_shop.png" /><br/>
