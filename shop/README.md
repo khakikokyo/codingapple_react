@@ -258,7 +258,7 @@ function About() {
 <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
 ```
 
-#### useParams(): /:url파라미터 자리에 유저가 입력한 값을 가져올 수 있다.
+11. `useParams()`: /:url파라미터 자리에 유저가 입력한 값을 가져올 수 있다.
 ```javascript
 // Detail.js
 import { useParams } from 'react-router-dom'
@@ -268,9 +268,12 @@ import { useParams } from 'react-router-dom'
 <p>{ props.shoes[id].price }원</p>
 ```
 
-# 컴포넌트의 Lifecycle(mount(생성) - update(재렌더링) - unmount(삭제))
+# 컴포넌트의 Lifecycle
+1. mount(생성)
+2. update(재렌더링)
+3. unmount(삭제)
 
-1. `Lifecycle hook`: 요청/간섭
+- `Lifecycle hook`: 요청/간섭
     - 어러운 연산
     - 서버에서 데이터 가져오는 작업
     - 타이머 장착
