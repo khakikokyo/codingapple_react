@@ -3,7 +3,7 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
 import Detail from './pages/Detail';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 function App() {
 
@@ -34,7 +34,7 @@ function App() {
             <div className="row">
               {
                 shoes.map(function(a, i) {
-                  return(<Card shoes={shoes[i]} i={i} />)
+                  return(<Card shoes={shoes[i]} i={i} key={i} />)
                 })
               }
             </div>
@@ -47,15 +47,6 @@ function App() {
 
     </div>
   );
-}
-
-function About() {
-  return (
-    <div>
-      <h4>회사정보</h4>
-      <Outlet></Outlet>
-    </div>
-  )
 }
 
 // 상품 레이아웃 컴포넌트

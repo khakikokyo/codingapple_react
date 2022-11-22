@@ -225,7 +225,7 @@ let navigate = useNavigate();
 <Route path="*" element={<div>없는 페이지입니다.</div>} />
 ```
 
-8. Nested Routes: 서브 경로 생성
+8. `Nested Routes`: 서브 경로 생성
 ```javascript
 <Route path="/about" element={<About />}>
   <Route path="/about/member" element={<About />} />
@@ -253,7 +253,7 @@ function About() {
 }
 ```
 
-10. URL 파라미터 문법: 페이지를 여러 개 만들고 싶을 때 사용
+10. `URL파라미터` 문법: 페이지를 여러 개 만들고 싶을 때 사용
 ```javascript
 <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
 ```
@@ -266,4 +266,17 @@ import { useParams } from 'react-router-dom'
 <h4 className="pt-5">{ props.shoes[id].title }</h4>
 <p>{ props.shoes[id].content }</p>
 <p>{ props.shoes[id].price }원</p>
+```
+
+# 컴포넌트의 Lifecycle(mount(생성) - update(재렌더링) - unmount(삭제))
+
+1. `Lifecycle hook`: 요청/간섭
+    - 어러운 연산
+    - 서버에서 데이터 가져오는 작업
+    - 타이머 장착
+```javascript
+import { useEffect } from 'react';
+
+// 콜백함수 추가해서 안에 코드를 적으면 그 코드는 컴포넌트가 mount & update 시 실행
+useEffect(function() {});
 ```
