@@ -10,6 +10,7 @@ function App() {
 
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate(); // 페이지 이동 도와주는 함수
+  let [count, setCount] = useState(0);
 
   return (
     <div className="App">
@@ -40,16 +41,27 @@ function App() {
                 }
               </div>
             </div>
-            <button className="btn btn-more" onClick={function() {
-              axios.get('https://codingapple1.github.io/shop/data2.json')
-              .then((result)=>{
-                let copy = [...shoes, ...result.data]
-                setShoes(copy)
+            <button className="btn-more" onClick={function() {
+              Promise.all([
+                axios.get('https://codingapple1.github.io/shop/data2.json'),
+                axios.get('https://codingapple1.github.io/shop/data3.json')
+              ])
+              .then((result) => {
+                setCount(count + 1);
+                if(count == 0) {
+                  let copy = [...shoes, ...result[0].data];
+                  setShoes(copy);
+                } else if(count == 1) {
+                  let copy = [...shoes, ...result[1].data];
+                  setShoes(copy);
+                } else {
+                  alert('더 이상 상품이 없습니다.');
+                }
               })
               .catch(()=>{
-                console.log('실패했습니다.')
+                alert('요청에 실패했습니다.');
               })
-            }}>더보기</button>
+            }}>더보기 ▽</button>
           </>
         } />
 

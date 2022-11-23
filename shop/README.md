@@ -370,3 +370,37 @@ import axios from 'axios';
   })
 }}>더보기</button>
 ```
+
+### 동시에 AJAX 요청 여러 개 하기
+```javascript
+Promise.all( [axios.get('URL1'), axios.get('URL2')] )
+```
+
+- 활용 예제
+1. data2.json, data3.json GET 요청
+2. 상품없음 alert창 띄우기
+```javascript
+let [count, setCount] = useState(0);
+
+<button className="btn-more" onClick={function() {
+  Promise.all([
+    axios.get('https://codingapple1.github.io/shop/data2.json'),
+    axios.get('https://codingapple1.github.io/shop/data3.json')
+  ])
+  .then((result) => {
+    setCount(count + 1);
+    if(count == 0) {
+      let copy = [...shoes, ...result[0].data];
+      setShoes(copy);
+    } else if(count == 1) {
+      let copy = [...shoes, ...result[1].data];
+      setShoes(copy);
+    } else {
+      alert('더 이상 상품이 없습니다.');
+    }
+  })
+  .catch(()=>{
+    alert('요청에 실패했습니다.');
+  })
+}}>더보기 ▽</button>
+```
