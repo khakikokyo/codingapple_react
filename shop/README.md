@@ -331,9 +331,16 @@ useEffect(function() {  }, [state명]); // 4. 특정 state 변경시에만 실�
     - `GET`: 데이터 가져오기
     - `POST`: 데이터 보내기
 
-### AJAX
+## AJAX
+### GET 요청
 1. XMLHttpRequest
 2. fetch()
+```javascript
+fetch('https://codingapple1.github.io/shop/data2.json')
+.then(result => result.json())
+.then(data => {})
+```
+
 3. axios - 외부 라이브러리
 ```bash
 $ npm install axios
@@ -403,4 +410,10 @@ let [count, setCount] = useState(0);
     alert('요청에 실패했습니다.');
   })
 }}>더보기 ▽</button>
+```
+
+### POST 요청
+서버로 데이터 전송
+```javascript
+axios.post('URL', {name : 'kim'});
 ```
