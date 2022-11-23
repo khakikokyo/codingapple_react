@@ -463,3 +463,49 @@ function TabContent({props1, props2}) {
   return ()
 }
 ```
+
+# 전환 애니메이션 (transition)
+1. 애니메이션 동작 전 스타일을 담을 className 생성
+```css
+.start {
+  opacity: 0;
+}
+```
+2. 애니메이션 동작 후 스타일을 담을 className 생성
+```css
+.end {
+  opacity: 1;
+}
+```
+3. transition 속성 추가
+```css
+.end {
+  opacity: 1;
+  transition: opacity 2s;
+}
+```
+4. 사용 (원할 때 end 부착)
+- `automatic batch` 기능 (react v18 -)
+- state 변경함수들이 연달아서 여러 개 처리되어야 하면, state 변경함수를 모두 처리하고 마지막에 한 번만 재렌더링
+```javascript
+function TabContent(props) {
+
+  let [fade, setFade] = useState('');
+
+  useEffect(()=>{
+    // automatic batching을 막아 주기 위해 setTimeout(약간의 시간차를 둠) 사용 (=flushSync())
+    let a = setTimeout(()=>{ setFade('end') }, 10);
+
+    return ()=>{ // 먼저 실행
+      clearTimeout(a);
+      setFade('');
+    }
+  }, [props.tab]); // 특정 state 변경시에만 실행
+
+  return (
+    <div className={'start ' + fade}>
+      { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab] }
+    </div>
+  )
+}
+```
