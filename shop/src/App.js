@@ -4,6 +4,7 @@ import './App.css';
 import data from './data.js';
 import Detail from './pages/Detail';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function App() {
 
@@ -26,19 +27,28 @@ function App() {
       <Routes>
         <Route path="/" element={
           <>
-          {/* 대문 */}
-          <div className="main-bg"></div>
+            {/* 대문 */}
+            <div className="main-bg"></div>
 
-          {/* 상품 레이아웃 */}
-          <div className="container">
-            <div className="row">
-              {
-                shoes.map(function(a, i) {
-                  return(<Card shoes={shoes[i]} i={i} key={i} />)
-                })
-              }
+            {/* 상품 레이아웃 */}
+            <div className="container">
+              <div className="row">
+                {
+                  shoes.map(function(a, i) {
+                    return(<Card shoes={shoes[i]} i={i} key={i} />)
+                  })
+                }
+              </div>
             </div>
-          </div>
+            <button onClick={function() {
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((result)=>{
+                console.log(result.data)
+              })
+              .catch(()=>{
+                console.log('실패했습니다.')
+              })
+            }}>더보기</button>
           </>
         } />
 

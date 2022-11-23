@@ -322,3 +322,36 @@ useEffect(function() {
 });
 useEffect(function() {  }, [state명]); // 4. 특정 state 변경시에만 실행
 ```
+
+# 서버
+#### 유저가 데이터를 요청하면 데이터를 보내주는 프로그램
+서버에 데이터 요청
+1. 어떤 데이터인지 (URL 형식)
+2. 요청 밥법 (GET or POST)
+    - `GET`: 데이터 가져오기
+    - `POST`: 데이터 보내기
+
+### AJAX
+1. XMLHttpRequest
+2. fetch()
+3. axios - 외부 라이브러리
+```bash
+$ npm install axios
+```
+- AJAX 요청하는 법 (axios)
+1. import
+2. axios.get('url') > get 요청
+3. 요청 실패시 .catch() 예외처리
+```javascript
+import axios from 'axios';
+
+<button onClick={function() {
+  axios.get('https://codingapple1.github.io/shop/data2.json')
+  .then((result)=>{
+    console.log(result.data)
+  })
+  .catch(()=>{
+    console.log('실패했습니다.')
+  })
+}}>더보기</button>
+```
