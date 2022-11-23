@@ -355,3 +355,18 @@ import axios from 'axios';
   })
 }}>더보기</button>
 ```
+
+- 활용 예제
+```javascript
+// 서버에서 데이터를 가져와서 html 3개 생성
+<button className="btn btn-more" onClick={function() {
+  axios.get('https://codingapple1.github.io/shop/data2.json')
+  .then((result)=>{
+    let copy = [...shoes, ...result.data]
+    setShoes(copy)
+  })
+  .catch(()=>{
+    console.log('실패했습니다.')
+  })
+}}>더보기</button>
+```
