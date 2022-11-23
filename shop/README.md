@@ -337,7 +337,7 @@ useEffect(function() {  }, [state명]); // 4. 특정 state 변경시에만 실�
 2. fetch()
 ```javascript
 fetch('https://codingapple1.github.io/shop/data2.json')
-.then(result => result.json())
+.then(result => result.json()) // JSON > array/object 변환과정 필요
 .then(data => {})
 ```
 
@@ -416,4 +416,50 @@ let [count, setCount] = useState(0);
 서버로 데이터 전송
 ```javascript
 axios.post('URL', {name : 'kim'});
+```
+
+# 탭 UI 만들기
+```javascript
+import { Nav } from 'react-bootstrap'
+
+// UI의 현재 상태를 저장할 state 생성
+let [tab, setTab] = useState(0);
+
+// html css로 디자인 완성(react-bootstrap 사용)
+<Nav variant="tabs" defaultActiveKey="link0">
+  <Nav.Item>
+    <Nav.Link eventKey="link0" onClick={()=>{ setTab(0) }}>버튼0</Nav.Link>
+  </Nav.Item>
+  <Nav.Item>
+    <Nav.Link eventKey="link1" onClick={()=>{ setTab(1) }}>버튼1</Nav.Link>
+  </Nav.Item>
+  <Nav.Item>
+    <Nav.Link eventKey="link2" onClick={()=>{ setTab(2) }}>버튼2</Nav.Link>
+  </Nav.Item>
+</Nav>
+<TabContent tab={tab} />
+
+// state에 따라서 UI가 어떻게 보일지 작성 (컴포넌트)
+function TabContent(props) {
+  if(props.tab == 0) {
+    return <div>내용0</div>
+  } else if(props.tab == 1) {
+    return <div>내용1</div>
+  } else if(props.tab == 2) {
+    return <div>내용2</div>
+  }
+}
+```
+```javascript
+// if문 대신 -
+function TabContent(props) {
+  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab]
+}
+```
+
+#### props 팁
+```javascript
+function TabContent({props1, props2}) {
+  return ()
+}
 ```
