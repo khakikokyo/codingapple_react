@@ -5,7 +5,11 @@ import { useParams } from 'react-router-dom'
 function Detail(props) {
 
   useEffect(function() {
-    setTimeout(function() { setAlert(false) }, 2000);
+    let timer = setTimeout(function() { setAlert(false) }, 2000);
+
+    return function() {
+      clearTimeout(timer);
+    }
   }, []);
 
   let {id} = useParams();

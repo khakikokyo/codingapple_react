@@ -290,8 +290,17 @@ useEffect(function() {});
 // Detail 페이지 방문 후 2초 뒤에 박스가 사라지는 UI
 let [alert, setAlert] = useState(true);
 
+// useEffect()의 두번째 파라미터로 [] 넣을 수 있는데, []에 변수나 state 같은 것들을 넣을 수 있다.
+// 그럴 경우 []에 있는 변수나 state가 변할 때만 useEffect 안의 코드를 실행해준다.
+// (참고) []안에 state를 여러 개 넣을 수 있다.
+
+// [] 안에 아무것도 넣지 않을 경우: 컴포넌트 mount시 1회만 실행
 useEffect(function() {
-  setTimeout(function() { setAlert(false) }, 2000);
+  let timer = setTimeout(function() { setAlert(false) }, 2000);
+
+  return function() {
+    clearTimeout(timer); // 타이머 제거해 주는 함수
+  }
 }, []);
 
 <div>
@@ -303,4 +312,13 @@ useEffect(function() {
     : null
   }
 </div>
+```
+### 정리
+```javascript
+useEffect(function() {  }); // 1. 재렌더링마다 코드를 실행
+useEffect(function() {  }, []); // 2. mount시 1회 코드를 실행
+useEffect(function() {
+  return function() {  } // 3. unmount시 1회 코드를 실행
+});
+useEffect(function() {  }, [state명]); // 4. 특정 state 변경시에만 실행
 ```
