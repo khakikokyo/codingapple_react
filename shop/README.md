@@ -661,3 +661,40 @@ function Cart() {
   // let a = useSelector((state)=>{ return state.user }); // store의 state 중 user만 저장
 }
 ```
+
+#### Redux 활용 예제
+1. stroe.js에 장바구니 데이터 보관
+```javascript
+let cart = createSlice({
+  name: 'cart',
+  initialState: [
+    {id : 0, name : 'White and Black', count : 2},
+    {id : 2, name : 'Grey Yordan', count : 1}
+  ]
+});
+
+export default configureStore({
+  reducer: {
+    cart: cart.reducer
+  }
+});
+```
+2. Cart.js에 데이터 바인딩
+```javascript
+let state = useSelector((state)=>{ return state });
+
+<tbody>
+  {
+    state.cart.map((a, i)=>{
+      return (
+        <tr key={i}>
+          <td>{ state.cart[i].id }</td>
+          <td>{ state.cart[i].name }</td>
+          <td>{ state.cart[i].count }</td>
+          <td>안녕</td>
+        </tr>
+      )
+    })
+  }
+</tbody>
+```

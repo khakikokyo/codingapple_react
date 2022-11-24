@@ -1,10 +1,10 @@
+import { startTransition } from 'react';
 import { Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 function Cart() {
 
-  let a = useSelector((state)=>{ return state });
-  console.log(a.stock);
+  let state = useSelector((state)=>{ return state });
 
   return (
     <div>
@@ -18,12 +18,18 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>안녕</td>
-            <td>안녕</td>
-            <td>안녕</td>
-          </tr>
+          {
+            state.cart.map((a, i)=>{
+              return (
+                <tr key={i}>
+                  <td>{ state.cart[i].id }</td>
+                  <td>{ state.cart[i].name }</td>
+                  <td>{ state.cart[i].count }</td>
+                  <td>안녕</td>
+                </tr>
+              )
+            })
+          }
         </tbody>
       </Table>
     </div>
