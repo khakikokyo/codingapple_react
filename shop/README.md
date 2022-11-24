@@ -877,3 +877,38 @@ let dispatch = useDispatch();
   }))
 }}>주문하기</button>
 ```
+
+# localStorage
+
+- key : value 형태로 저장
+- 최대 5MB까지 문자만 저장가능
+- 사이트 재접속해도 데이터가 남아있음 (브라우저 청소하면 삭제)
+
+1. localStorage 문법
+```javascript
+// 1. 데이터 저장
+localStorage.setItem('이름', '값')
+
+// 2. 데이터 출력(읽기)
+localStorage.getItem('이름')
+
+// 3. 데이터 삭제
+localStorage.removeItem('age')
+
+// 4. 데이터 수정하는 문법은 없음
+// 저장된 데이터를 꺼내서 수정하고 다시 저장
+```
+
+2. array/abject 저장 > JSON
+```javascript
+function App() {
+  let obj = { name: 'kim' }
+  
+  // 1. array/object > JSON 변환 (JSON.stringify())
+  localStorage.setItem('data', JSON.stringify(obj));
+
+  // 2. JSON > array/object 변환 (JSON.parse())
+  let data = localStorage.getItem('data');
+  JSON.parse(data);
+}
+```
