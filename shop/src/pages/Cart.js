@@ -1,4 +1,5 @@
 import { Table } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 function Cart() {
   return (

@@ -602,7 +602,7 @@ function Cart() {
 export default Cart;
 ```
 
-#### Redux 설치 & 사용
+#### Redux 설치 & 셋팅
 ```bash
 # "react", "react-dom" (v18.1.x -)
 $ npm install @reduxjs/toolkit react-redux
