@@ -562,7 +562,7 @@ function TabContent(props) {
 }
 ```
 
-### Redux
+## Redux
 #### 장바구니 페이지 만들기
 ```javascript
 // App.js Cart 컴포넌트 import
@@ -602,7 +602,7 @@ function Cart() {
 export default Cart;
 ```
 
-#### Redux 설치 & 셋팅
+### Redux 설치 & 셋팅
 ```bash
 # "react", "react-dom" (v18.1.x -)
 $ npm install @reduxjs/toolkit react-redux
@@ -632,7 +632,7 @@ root.render(
 );
 ```
 
-#### Redux store에 state 보관하는 방법
+### Redux store에 state 보관하는 방법
 1. createSlice()로 state 생성
 ```javascript
 import { configureStore, createSlice } from '@reduxjs/toolkit';
@@ -651,7 +651,7 @@ export default configureStore({
 });
 ```
 
-#### Redux store에 있던 state 가져다 사용하는 법
+### Redux store에 있던 state 가져다 사용하는 법
 ```javascript
 // Cart.js
 import { useSelector } from 'react-redux';
@@ -697,4 +697,46 @@ let state = useSelector((state)=>{ return state });
     })
   }
 </tbody>
+```
+
+### Redux의 state 변경하는 방법
+
+```javascript
+// store.js
+// initialState: 'kim' > 'john kim'
+// 1. state 수정해 주는 함수 만들기
+let user = createSlice({
+  name: 'user',
+  initialState: 'kim',
+  reducers: {
+    // initialState: 'kim' > 'john kim'으로 수정해 주는 함수
+    changeName(state) { // 기존 state
+      return 'john ' + state
+    }
+  }
+});
+
+// 또는 -
+reducers: {
+  changeName() {
+    return 'john kim'
+  }
+}
+
+// 2. 만든 함수를 가져다 쓸 수 있게 export
+export let { changeName, 함수2 ... } = user.actions;
+```
+
+```javascript
+// Cart.js
+// 3. 만든 함수를 import 해서 사용
+import { useDispatch } from 'react-redux';
+
+// store.js로 요청 보내주는 함수
+let dispatch = useDispatch();
+
+// dispatch(state변경함수())
+<td><button onclick={()=>{
+  dispatch(changeName())
+}}>+</button></td>
 ```
