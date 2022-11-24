@@ -740,3 +740,75 @@ let dispatch = useDispatch();
   dispatch(changeName())
 }}>+</button></td>
 ```
+
+### Redux: array/object인 경우 state 변경하는 방법
+
+```javascript
+// Cart.js
+import { changeName, increase } from '../store';
+
+<h6>{ state.user.name } { state.user.age }의 장바구니</h6>
+<button onClick={()=>{ dispatch(increase()) }}>버튼</button>
+```
+
+```javascript
+// store.js
+// array/object의 경우 직접 수정해도 state가 변경된다.
+let user = createSlice({
+  name: 'user',
+  initialState: { name: 'kim', age: 20 },
+  reducers: {
+    changeName(state) {
+      state.name = 'park'
+    },
+    increase(state) {
+      state.age += 1
+    }
+  }
+});
+export let { changeName, increase } = user.actions;
+```
+
+#### state 변경함수가 여러 개 필요한 경우
+```javascript
+// store.js
+let user = createSlice({
+  name: 'user',
+  initialState: { name: 'kim', age: 20 },
+  reducers: {
+    increase(state, action) { // 파라미터
+      state.age += action.payload
+    }
+  }
+});
+
+// Cart.js
+<button onClick={()=>{ dispatch(increase(100)) }}>버튼</button>
+```
+
+#### store 파일 분할
+1. store 폴더 > userSlice.js 생성
+```javascript
+import { createSlice } from '@reduxjs/toolkit';
+
+let user = createSlice({
+  name: 'user',
+  initialState: { name: 'kim', age: 20 },
+  reducers: {
+    changeName(state) {
+      state.name = 'park'
+    },
+    increase(state) {
+      state.age += 1
+    }
+  }
+});
+export let { changeName, increase } = user.actions;
+
+export default user;
+```
+
+2. store.js import
+```javascript
+import user from './store/userSlice.js';
+```
