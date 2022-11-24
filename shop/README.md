@@ -514,13 +514,13 @@ function TabContent(props) {
 
 1. 컴포넌트가 여러 개 중첩되어 있는 경우 부모 > 자식 간의 props를 각각 전송해야 한다.
 2. props를 사용하지 않을 경우 -
-    1. `Context API` (리액트 기본문법): props 전송없이 state 공유가능
+    1. `Context API` (리액트 기본문법): 컴포넌트들이 props 전송없이 state 공유가능
         - 단점 -
         1. state 변경시 쓸데없는 컴포넌트까지 재렌더링 (비효율적, 성능이슈)
         2. 나중에 컴포넌트 재사용이 어려움
         3. useContext()를 쓰고 있는 컴포넌트는 나중에 다른 파일에서 재사용할 때 Context를 import 하는게 불편
         4. 그래서 redux 같은 외부 라이브러리를 많이 사용한다.
-    2. `Redux` 등 외부 라이브러리
+    2. `Redux` 등 외부 라이브러리 : 컴포넌트들이 props 전송없이 state 공유가능
 
 ### Context API
 ```javascript
@@ -560,4 +560,73 @@ function TabContent(props) {
     {재고}
   )
 }
+```
+
+### Redux
+#### 장바구니 페이지 만들기
+```javascript
+// App.js Cart 컴포넌트 import
+import Cart from './pages/Cart.js';
+
+// App.js <Route> cart 페이지 추가
+<Route path="/cart" element={ <Cart/> } />
+
+// Cart.js 컴포넌트 파일 생성 (react-bootstrap 활용)
+import { Table } from 'react-bootstrap';
+
+function Cart() {
+  return (
+    <div>
+      <Table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>상품명</th>
+            <th>수량</th>
+            <th>변경하기</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>안녕</td>
+            <td>안녕</td>
+            <td>안녕</td>
+          </tr>
+        </tbody>
+      </Table>
+    </div>
+  )
+}
+
+export default Cart;
+```
+
+#### Redux 설치 & 사용
+```bash
+# "react", "react-dom" (v18.1.x -)
+$ npm install @reduxjs/toolkit react-redux
+```
+
+1. store.js 파일 생성 & 코드 기재
+```javascript
+import { configureStore } from '@reduxjs/toolkit';
+
+export default configureStore({
+  reducer: {}
+});
+```
+
+2. index.js 선언
+```javascript
+import { Provider } from 'react-redux';
+
+// stroe.js에 있던 state 전부 사용가능
+root.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
+);
 ```
