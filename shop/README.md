@@ -509,3 +509,55 @@ function TabContent(props) {
   )
 }
 ```
+
+# 컴포넌트 props
+
+1. 컴포넌트가 여러 개 중첩되어 있는 경우 부모 > 자식 간의 props를 각각 전송해야 한다.
+2. props를 사용하지 않을 경우 -
+    1. `Context API` (리액트 기본문법): props 전송없이 state 공유가능
+        - 단점 -
+        1. state 변경시 쓸데없는 컴포넌트까지 재렌더링 (비효율적, 성능이슈)
+        2. 나중에 컴포넌트 재사용이 어려움
+        3. useContext()를 쓰고 있는 컴포넌트는 나중에 다른 파일에서 재사용할 때 Context를 import 하는게 불편
+        4. 그래서 redux 같은 외부 라이브러리를 많이 사용한다.
+    2. `Redux` 등 외부 라이브러리
+
+### Context API
+```javascript
+// App.js
+// Context API
+import { createContext } from 'react'
+
+// 1. createContext(): context 1개 생성 (=state 보관함)
+export let Context1 = createContext(); // Detail.js에서 사용하기 위해 export
+let [재고] = useState([10, 11, 12]);
+
+// 2. <Context>로 원하는 컴포넌트 감싸기
+// 3. value={{state1, state2 ...}}
+<Route path="/detail/:id" element={
+  <Context1.Provider value={{ 재고, shoes }}>
+    <Detail shoes={shoes} />
+  </Context1.Provider>
+} />
+```
+
+```javascript
+// Detail.js
+// 1. state 사용: Context를 import
+import { Context1 } from './../App.js';
+function Detail(props) {
+  let {재고, shoes} = useContext(Context1); // 보관함(createContext()) 해체해 주는 함수
+
+  return (
+    {재고} // props 전송없이도 App에 있던 state가 잘 출력됨
+  )
+}
+
+function TabContent(props) {
+  let {재고, shoes} = useContext(Context1);
+
+  return (
+    {재고}
+  )
+}
+```
