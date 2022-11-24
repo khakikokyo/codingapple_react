@@ -812,3 +812,68 @@ export default user;
 ```javascript
 import user from './store/userSlice.js';
 ```
+
+### 활용 예제
+1. 버튼을 누르면 수량 + 1 기능 만들기
+```javascript
+// store.js
+let cart = createSlice({
+  name: 'cart',
+  initialState: [
+    {id : 0, name : 'White and Black', count : 2},
+    {id : 2, name : 'Grey Yordan', count : 1}
+  ],
+  reducers: {
+    addCount(state, action) {
+      let num = state.findIndex((a)=>{ return a.id === action.payload }) // 해당하는 id의 수량 +1
+      state[num].count++
+    }
+  }
+});
+```
+```javascript
+// Cart.js
+import { addCount } from '../store.js';
+
+<button onClick={()=>{
+  dispatch(addCount(state.cart[i].id));
+}}>+</button>
+```
+
+2. Detail 페이지에서 주문하기 버튼 클릭시 장바구니에 상품 추가하기
+```javascript
+// store.js 수정함수 생성
+let cart = createSlice({
+  name: 'cart',
+  initialState: [
+    {id : 0, name : 'White and Black', count : 2},
+    {id : 2, name : 'Grey Yordan', count : 1}
+  ],
+  reducers: {
+    addCount(state, action) {
+      let num = state.findIndex((a)=>{ return a.id === action.payload })
+      state[num].count++
+    },
+    addItem(state, action) {
+      state.push(action.payload);
+    }
+  }
+});
+export let { addCount, addItem } = cart.actions;
+```
+
+```javascript
+// Detail.js
+import { addItem } from './../store.js';
+import { useDispatch } from 'react-redux';
+
+let dispatch = useDispatch();
+
+<button className="btn btn-danger" onClick={()=>{
+  dispatch(addItem({
+    id: foundProduct.id,
+    name: foundProduct.title,
+    count: 1
+  }))
+}}>주문하기</button>
+```

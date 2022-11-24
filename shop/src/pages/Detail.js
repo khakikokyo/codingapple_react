@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import { Nav } from 'react-bootstrap'
+import { addItem } from './../store.js';
+import { useDispatch } from 'react-redux';
+
 
 // '/detail' 페이지 레이아웃 컴포넌트
 function Detail(props) {
@@ -17,6 +20,7 @@ function Detail(props) {
   let foundProduct = props.shoes.find(x => x.id == id);
   let [alert, setAlert] = useState(true);
   let [tab, setTab] = useState(0);
+  let dispatch = useDispatch();
 
   return (
     <div className="container">
@@ -35,7 +39,13 @@ function Detail(props) {
           <h4 className="pt-5">{ foundProduct.title }</h4>
           <p>{ foundProduct.content }</p>
           <p>{ foundProduct.price }원</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button className="btn btn-danger" onClick={()=>{
+            dispatch(addItem({
+              id: foundProduct.id,
+              name: foundProduct.title,
+              count: 1
+            }))
+          }}>주문하기</button>
         </div>
       </div>
 
