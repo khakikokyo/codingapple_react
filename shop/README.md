@@ -620,6 +620,7 @@ export default configureStore({
 2. index.js 선언
 ```javascript
 import { Provider } from 'react-redux';
+import store from './store.js';
 
 // stroe.js에 있던 state 전부 사용가능
 root.render(
@@ -629,4 +630,34 @@ root.render(
     </BrowserRouter>
   </Provider>
 );
+```
+
+#### Redux store에 state 보관하는 방법
+1. createSlice()로 state 생성
+```javascript
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+
+let user = createSlice({
+  name: 'user', // state 이름
+  initialState: 'kim' // state 값
+});
+```
+2. configureStore() 안에 등록
+```javascript
+export default configureStore({
+  reducer: {
+    user: user.reducer // 작명: createSlice(변수명).reducer
+  }
+});
+```
+
+#### Redux store에 있던 state 가져다 사용하는 법
+```javascript
+// Cart.js
+import { useSelector } from 'react-redux';
+
+function Cart() {
+  let a = useSelector((state)=>{ return state }); // store에 있던 모든 state
+  // let a = useSelector((state)=>{ return state.user }); // store의 state 중 user만 저장
+}
 ```
