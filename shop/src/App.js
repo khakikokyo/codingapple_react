@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
 import Detail from './pages/Detail.js';
 import Cart from './pages/Cart.js';
+import Watched from './pages/Watched.js';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function App() {
+
+  useEffect(() => {
+    if(localStorage.getItem('watched') === null) {
+      localStorage.setItem('watched', JSON.stringify([]));
+    }
+  }, []);
 
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate(); // 페이지 이동 도와주는 함수
@@ -21,7 +28,7 @@ function App() {
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={function() { navigate('/') }}>Home</Nav.Link>
-            <Nav.Link onClick={function() { navigate('/detail') }}>DetailPage</Nav.Link>
+            <Nav.Link onClick={function() { navigate('/detail/1') }}>DetailPage</Nav.Link>
             <Nav.Link onClick={function() { navigate('/cart') }}>Cart</Nav.Link>
           </Nav>
         </Container>
@@ -31,14 +38,16 @@ function App() {
         <Route path="/" element={
           <>
             {/* 대문 */}
-            <div className="main-bg"></div>
+            <div className="main-bg">
+              <Watched shoes={shoes} navigate={navigate} />
+            </div>
 
             {/* 상품 레이아웃 */}
             <div className="container">
               <div className="row">
                 {
                   shoes.map(function(a, i) {
-                    return(<Card shoes={shoes[i]} i={i} key={i} />)
+                    return(<Card shoes={shoes[i]} i={i} navigate={navigate} key={i} />)
                   })
                 }
               </div>
@@ -64,11 +73,16 @@ function App() {
                 alert('요청에 실패했습니다.');
               })
             }}>더보기 ▽</button>
+
+            <div className="recently-product">
+              <div></div>
+            </div>
           </>
         } />
 
         <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="*" element={<div>없는 페이지 입니다.</div>} />
       </Routes>
 
     </div>
@@ -79,7 +93,7 @@ function App() {
 function Card(props) {
   return (
     <div className="col-md-4">
-      <img src={'https://codingapple1.github.io/shop/shoes'+ (props.i+1) +'.jpg'} alt="shoes1" />
+      <img src={'https://codingapple1.github.io/shop/shoes'+ (props.i+1) +'.jpg'} alt="shoes1" onClick={()=>{ props.navigate('/detail/'+props.i) }} />
       <h4>{ props.shoes.title }</h4>
       <p>{ props.shoes.price }</p>
     </div>

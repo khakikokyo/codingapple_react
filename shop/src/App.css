@@ -16,6 +16,7 @@
   background-image: url('../public/img/bg.png');
   background-size: cover;
   background-position: center;
+  position: relative;
 }
 
 .container .row .col-md-4 img {
@@ -35,4 +36,39 @@
   border: 1px solid #b9b9b9;
   border-radius: 10px;
   margin-top: 30px;
+}
+
+.col-md-4 img {
+  cursor: pointer;
+}
+
+/* Watched.js */
+.watched {
+  background-color: #fff;
+  width: 150px;
+  height: 210px;
+  border-radius: 10px;
+  position: absolute;
+  top: 70px;
+  right: 12px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.watched p {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.watched .watched-item img {
+  width: 70%;
+  cursor: pointer;
+  border: 1px solid #e9e9e9;
+  border-radius: 10px;
+  box-shadow: 4px 4px 10px rgba(0,0,0,.15);
+}
+
+.watched .watched-item .title {
+  font-size: 10px;
 }

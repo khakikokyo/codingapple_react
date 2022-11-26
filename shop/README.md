@@ -912,3 +912,55 @@ function App() {
   JSON.parse(data);
 }
 ```
+
+3. 최근 본 상품 기능 만들기
+```javascript
+// App.js
+useEffect(() => {
+  if(localStorage.getItem('watched') === null) {
+    localStorage.setItem('watched', JSON.stringify([]));
+  }
+}, []);
+```
+
+```javascript
+// Detail.js
+useEffect(function() {
+  let watched = JSON.parse(localStorage.getItem('watched'));
+  watched.push(foundProduct.id);
+  watched = new Set(watched); // 중복 허용 X
+  watched = Array.from(watched); // 다시 array로 변환
+  if(watched.length > 2) { watched.shift() } // watched의 길이가 2 이상인 경우 뒤에서부터 배열 삭제
+  localStorage.setItem('watched', JSON.stringify(watched));
+}, []);
+```
+
+```javascript
+// Watched.js
+function Watched(props) {
+
+  // 뒤에서부터 watched 읽기
+  let watchedAll = JSON.parse(localStorage.getItem('watched')).reverse();
+
+  return (
+    <div className="watched">
+      <p>최근 본 상품</p>
+      {
+        watchedAll !== null
+        ? watchedAll.map((watched, i)=>{
+            return (
+              <div className="watched-item" key={i}>
+                <img src={`https://codingapple1.github.io/shop/shoes${watched+1}.jpg`}
+                alt="item" onClick={()=>{ props.navigate('detail/'+watchedAll[i]) }} />
+                <p className="title">{ props.shoes.title }</p>
+              </div>
+            )
+          })
+        : null
+      }
+    </div>
+  )
+}
+
+export default Watched;
+```

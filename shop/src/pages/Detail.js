@@ -4,23 +4,30 @@ import { Nav } from 'react-bootstrap'
 import { addItem } from './../store.js';
 import { useDispatch } from 'react-redux';
 
-
-// '/detail' 페이지 레이아웃 컴포넌트
 function Detail(props) {
+
+  let {id} = useParams();
+  let idNum = Number(id);
+  let imgId = idNum + 1;
+  let foundProduct = props.shoes.find(x => x.id == id);
+  let [alert, setAlert] = useState(true);
+  let [tab, setTab] = useState(0);
+  let dispatch = useDispatch();
 
   useEffect(function() {
     let timer = setTimeout(function() { setAlert(false) }, 2000);
+
+    let watched = JSON.parse(localStorage.getItem('watched'));
+    watched.push(foundProduct.id);
+    watched = new Set(watched); // 중복 허용 X
+    watched = Array.from(watched); // 다시 array로 변환
+    if(watched.length > 2) { watched.shift() }
+    localStorage.setItem('watched', JSON.stringify(watched));
 
     return function() {
       clearTimeout(timer);
     }
   }, []);
-
-  let {id} = useParams();
-  let foundProduct = props.shoes.find(x => x.id == id);
-  let [alert, setAlert] = useState(true);
-  let [tab, setTab] = useState(0);
-  let dispatch = useDispatch();
 
   return (
     <div className="container">
@@ -33,7 +40,7 @@ function Detail(props) {
       }
       <div className="row">
         <div className="col-md-6">
-          <img src={'https://codingapple1.github.io/shop/shoes1.jpg'} alt="shoes1" />
+          <img src={'https://codingapple1.github.io/shop/shoes'+ imgId +'.jpg'} alt="shoes1" />
         </div>
         <div className="col-md-6">
           <h4 className="pt-5">{ foundProduct.title }</h4>
