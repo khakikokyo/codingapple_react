@@ -1023,7 +1023,7 @@ function Cart() {
 }
 ```
 
-3. useMemo(): 컴포넌트 로드시 1회만 실행하고 싶은 코드가 있는 경우
+2. useMemo(): 컴포넌트 로드시 1회만 실행하고 싶은 코드가 있는 경우
 #### useEffect와 비슷한 용도: 실행시점의 차이가 있다.
 ```javascript
 import { useMemo } from 'react'
@@ -1034,5 +1034,53 @@ function 함수() {
 
 function Cart() {
   let result = useMemo(()=>{ return 함수() , []});
+}
+```
+
+# 성능개선 - batching, useTransition, useDeferredValue
+
+1. 일관된 batching (react v18-)
+    - automatic batching 기능
+    - state 변경함수를 연달아서 3개 사용하면 재렌더링도 원래는 3번 되어야 하지면, 리액트는 재렌더링을 마지막 1회만 처리해준다. 일종의 쓸데없는 재렌더링 방지기능이고, 이를 batching이라고 한다.
+```javascript
+setCount(1);
+setName(2);
+setValue(3); // 여기서 1번만 재렌더링
+```
+리액트 17버전까지는 ajax요청, setTimeout 안에 state 변경함수가 있는 경우 batching이 일어나지 않았는데, 18버전 이후부터는 어디있든지 재렌더링은 마지막 1회만 실행된다.<br/>
+
+batching 되는게 싫고 state 변경함수 실행마다 재렌더링 시키고 싶으면 `flushSync`라는 함수를 사용하면 된다.
+
+2. useTransition (react v18-)
+
+렌더링 시간이 매우 오래 걸리는 컴포넌트가 있는 경우, 버튼클릭, 타이핑할 때 마다 해당 컴포넌트를 렌더링한다면 반응속도가 느려진다.<br/>
+이를 개선하기 위한 방법으로는 해당 컴포넌트 안의 html 갯수를 줄이거나, 여러 페이지로 쪼개서 관리하거나, `useTransition` 기능을 사용한다.
+
+```javascript
+import { useState, useTransition } from 'react';
+
+let a = new Array(10000).fill(0);
+
+function App() {
+  let [name, setName] = useState('');
+  // [변수, 함수]
+  let [isPending, startTransition] = useTransition();
+
+  return (
+    <div>
+      <input onChange={(e) => {
+        // startTransition() 함수로 state변경함수 같은걸 묶으면 그걸 다른 코드들보다 나중에 처리
+        startTransition(()=>{ setName(e.target.value) })
+      }} />
+
+      {
+        // isPending: startTransition()으로 감싼 코드가 처리중일 때 true로 변하는 변수
+        isPending ? "로딩중입니다. 잠시만 기다려 주세요." :
+        a.map(()=>{
+          return <div>{ name }</div>
+        })
+      }
+    </div>
+  )
 }
 ```
