@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
-import Detail from './pages/Detail.js';
-import Cart from './pages/Cart.js';
 import Watched from './pages/Watched.js';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+const Detail = lazy( () => import('./pages/Detail.js') );
+const Cart = lazy( () => import('./pages/Cart.js') );
 
 function App() {
 

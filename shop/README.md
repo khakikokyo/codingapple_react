@@ -964,3 +964,36 @@ function Watched(props) {
 
 export default Watched;
 ```
+
+# lazy import
+
+리액트로 만든 Single Page Application의 특징은 html, js 파일이 하나만 생성되어 파일 사이즈가 크다.<br/>
+그래서 리액트 사이트들은 첫 페이지 로딩속도가 매우 느릴 수 있다.<br/>
+
+개선하기 위한 방법으로는 js 파일을 잘게 쪼개야 하는데, 해당 방식으로는 lazy import 방식이 있다.<br/>
+import한 컴포넌트가 메인 페이지에서 전혀 보이지 않는 컴포넌트들을 아래와 같은 문법으로 import 하는 방식이다.
+
+```javascript
+// App.js
+import { lazy } from 'react';
+
+// 전
+import Detail from './pages/Detail.js';
+import Cart from './pages/Cart.js';
+
+// 후: 해당 컴포넌트가 필요해지면 import, 그래서 첫 페이지 로딩속도를 향상시킬 수 있다.
+const Detail = lazy( () => import('./pages/Detail.js') );
+const Cart = lazy( () => import('./pages/Cart.js') );
+```
+lazy를 사용하면 해당 컴포넌트 로드까지 지연시간이 발생할 수 있어,<br/>
+1. Suspense import
+2. 해당하는 컴포넌트(Detail/Cart)를 감싸주면, 컴포넌트가 로딩중일 때 대신 보여줄 html 작성도 가능
+3. 해당하는 컴포넌트 말고, <Routes> 전부를 감싸도 된다.
+
+```javascript
+import { Suspense } from 'react';
+
+<Suspense fallback={<div>로딩중</div>}>
+  <Routes><Routes>
+</Suspense>
+```
