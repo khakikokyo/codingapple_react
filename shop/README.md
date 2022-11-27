@@ -1084,3 +1084,33 @@ function App() {
   )
 }
 ```
+
+3. useDeferredValue
+
+startTransition() 용도가 똑같다.<br/>
+다만 useDererredValue는 state 또는 변수 하나를 집어넣을 수 있게 되어있다. 그래서 해당 변수(state)에 변동사항이 생기면 그걸 늦게 처리해 준다.<br/>
+
+useDeferredValue 안에 state를 집어넣으면 그 state가 변동사항이 생겼을 때 나중에 처리, 그리고 그 처리결과는 `let state`에 저장해 준다.
+
+```javascript
+import { useState, useDeferredValue } from 'react';
+
+let a = new Array(10000).fill(0);
+
+function App() {
+  let [name, setName] = useState('');
+  let state = useDeferredValue(name);
+
+  return (
+    <div>
+      <input onChange={(e) => { setName(e.target.value) }} />
+
+      {
+        a.map(()=>{
+          return <div>{ state1 }</div>
+        })
+      }
+    </div>
+  )
+}
+```
