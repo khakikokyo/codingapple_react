@@ -16,7 +16,7 @@ React 기본 문법에 대해 공부합니다.
 2. 터미널
 
 ```bash
-$ npx create-react-add 프로젝트명
+$ npx create-react-app 프로젝트명
 ```
 
 3. vscode 프로젝트 폴더 오픈
